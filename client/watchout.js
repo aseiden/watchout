@@ -9,8 +9,14 @@ var board = d3.select('.board')
 
 var asteroids = 'abcdefg'.split('');
 
-var randomize = function(size) {
-  return Math.floor(Math.random() * size);
+function update(data) {
+  board.selectAll('.asteroid')
+    .data(data)
+    .transition()
+    .duration(1000)
+    .attr('x', function() { return Math.random() * width; })
+    .attr('y', function() { return Math.random() * height; });
+
 }
 
 board.selectAll('.asteroid')
@@ -23,3 +29,6 @@ board.selectAll('.asteroid')
      .attr('height', 36)
      .attr('x', function() { return Math.random() * width; })
      .attr('y', function() { return Math.random() * height; });
+
+update(asteroids);
+setInterval(function(){ update(asteroids); }, 1000);
