@@ -3,6 +3,7 @@ var height = 500;
 var width = 960;
 var asteroids = 'abcdefg'.split('');
 var ship = [{key: 'theLoneWanderer', x: 0, y: 0}];
+var stars = 'asodnfpoasndfvpvnlaslkdvjnaslkjcnaseflin'.split('');
 var drag = d3.behavior.drag();
 var highScore = [0];
 var currentScore = [0];
@@ -49,6 +50,15 @@ var board = d3.select('.board')
               .attr('width', width)
               .attr('height', height)
               .style('background-color', 'black');
+
+board.selectAll('.stars')
+     .data(stars)
+     .enter()
+     .append('svg:image')
+     .attr('class', 'stars')
+     .attr('xlink:href', 'stars.gif')
+     .attr('x', function() { return Math.random() * width; })
+     .attr('y', function() { return Math.random() * height; });
 
 board.selectAll('.ship')
      .data(ship)
@@ -134,4 +144,4 @@ CODE TO INITIALIZE
 
 update(asteroids);
 setInterval(function(){ update(asteroids); }, 1000);
-setInterval(function() {detectCollisions(); }, 100);
+setInterval(function() {detectCollisions(); }, 50);
