@@ -1,5 +1,48 @@
-/* your beautiful css styling goes here! */
+div{
+  background-color: transparent;
+}
 
-/* Note: an asteroid image is included in this repo.
-Feel free to use it if you like. */
+body {
+  background-color: black;
+}
 
+.boardPlusBorder {
+  margin: 30px 30px;
+  background-image: url("video-frame.png");
+  width: 1110px;
+  height: 600px;
+  background-size: 100%;
+}
+
+.scoreboardGameBoard {
+  padding: 25px 0px 0px 70px;
+}
+
+.board {
+
+}
+
+.realBoard {
+
+}
+
+.scoreHolding {
+  float: left;
+  padding: 10px 15px 0px 15px;
+  font-family: 'PressStart2PRegular'; 
+  font-weight: normal; 
+  font-style: normal;
+  color: lime;
+}
+
+.highscoreHolding {
+  
+}
+
+.collisionHolding {
+
+}
+
+.currentscoreHolding {
+
+}

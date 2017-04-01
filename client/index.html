@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel='stylesheet' type='css' href='styles.css'>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/press-start-2p" type="text/css"/>
   </head>
   <body>
-    <div class="scoreboard">
-      <!-- Modify the scoreboard when important events occur in your game! -->
-      <div>High score: <span class="highscore">0</span></div>
-      <div>Current score: <span class="current">0</span></div>
-      <div>Collisions: <span class="collisions">0</span></div>
+    <div class="boardPlusBorder">
+      <div class = "scoreboardGameBoard">
+        <div class="scoreboard">
+          <!-- Modify the scoreboard when important events occur in your game! -->
+          <div class="scoreHolding highscoreHolding">High score: <span class="highscore">0</span></div>
+          <div class="scoreHolding currentscoreHolding">Current score: <span class="current">0</span></div>
+          <div class="scoreHolding collisionHolding">Collisions: <span class="collisions">0</span></div>
+        </div>
+
+        <div class="board"><div class="mouse"></div></div>
+      </div>
     </div>
-    <div class="board"><div class="mouse"></div></div>
     <script src="lib/d3.js" charset="utf-8"></script>
     <script src='watchout.js'></script>
+
   </body>
 </html>
