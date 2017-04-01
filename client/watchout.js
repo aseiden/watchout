@@ -20,10 +20,30 @@ function update(data) {
     .attr('y', function() { return Math.random() * height; });
 }
 
+var detectCollisions = function() {
+  var asteroids = d3.selectAll('.asteroid');
+  asteroids = asteroids[0];
+  var asteroidCoordinates = asteroids.map(function(item){
+    return [item.x.animVal.value, item.y.animVal.value];
+  });
+  var shipCoordinates = [d3.selectAll('.ship')[0][0].x.animVal.value, d3.selectAll('.ship')[0][0].y.animVal.value];
+  asteroidCoordinates.forEach(function(coordinates){
+    var asteroidXCoordinate = coordinates[0];
+    var asteroidYCoordinate = coordinates[1];
+    var shipXCoordinate = shipCoordinates[0];
+    var shipYCoordinate = shipCoordinates[1];
+    var xDiff = asteroidXCoordinate - shipXCoordinate;
+    var yDiff = asteroidYCoordinate - shipYCoordinate;
+    var distSquared = Math.pow(xDiff, 2) + Math.pow(yDiff, 2);
+    var distance = Math.sqrt(distSquared);
+    if(distance < 20) {
+      // set score to 0;
+    }
+  })
+}
 
 var drag = d3.behavior.drag()
         .on("drag", function(d,i) {
-            debugger;
             d.x += d3.event.dx
             d.y += d3.event.dy
             d3.select(this).attr("transform", function(d,i){
@@ -46,6 +66,8 @@ board.selectAll('.asteroid')
 
 update(asteroids);
 setInterval(function(){ update(asteroids); }, 1000);
+
+setInterval(function() {detectCollisions(); }, 50);
 
 board.selectAll('.ship')
      .data(ship)
