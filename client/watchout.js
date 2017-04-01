@@ -14,13 +14,31 @@ var highScore = [0];
 var currentScore = [0];
 var collisions = [0];
 
+function borderDetection(dx, dy) {
+  if(width / 2 + ship[0].x + dx > width - 30) {
+    return true;
+  }
+  if(0 > width / 2 + ship[0].x + dx) {
+    return true;
+  }
+  if(height/ 2 + ship[0].y + dy > height - 30) {
+    debugger;
+    return true;
+  }
+  if(0 > height / 2 + ship[0].y + dy) {
+    debugger;
+    return true;
+  }
+  return false;
+}
+
 function update(data) {
   board.selectAll('.asteroid')
     .data(data)
     .transition()
     .duration(1000)
-    .attr('x', function() { return Math.random() * width; })
-    .attr('y', function() { return Math.random() * height; });
+    .attr('x', function() { return Math.min(Math.random() * (ship[0].x + width), width - 30); })
+    .attr('y', function() { return Math.min(Math.random() * (ship[0].y + height), height - 30); });
 
     currentScore[0]++; 
     d3.selectAll('.current').text(currentScore[0]);
@@ -55,11 +73,13 @@ var detectCollisions = function() {
 
 var drag = d3.behavior.drag()
         .on("drag", function(d,i) {
+          if(!borderDetection(d3.event.dx, d3.event.dy)) {
             d.x += d3.event.dx
             d.y += d3.event.dy
             d3.select(this).attr("transform", function(d,i){
                 return "translate(" + [ d.x,d.y ] + ")"
             })
+          }
         });
 
         // return "translate(" + [ d.x,d.y ] + ")"
