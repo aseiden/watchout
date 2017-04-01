@@ -10,6 +10,9 @@ var board = d3.select('.board')
 var asteroids = 'abcdefg'.split('');
 var ship = [{key: 'theLoneWanderer', x: 0, y: 0}];
 var drag = d3.behavior.drag();
+var highScore = [0];
+var currentScore = [0];
+var collisions = [0];
 
 function update(data) {
   board.selectAll('.asteroid')
@@ -18,6 +21,9 @@ function update(data) {
     .duration(1000)
     .attr('x', function() { return Math.random() * width; })
     .attr('y', function() { return Math.random() * height; });
+
+    currentScore[0]++; 
+    d3.selectAll('.current').text(currentScore[0]);
 }
 
 var detectCollisions = function() {
@@ -30,14 +36,19 @@ var detectCollisions = function() {
   asteroidCoordinates.forEach(function(coordinates){
     var asteroidXCoordinate = coordinates[0];
     var asteroidYCoordinate = coordinates[1];
-    var shipXCoordinate = shipCoordinates[0];
-    var shipYCoordinate = shipCoordinates[1];
+    var shipXCoordinate = Number(shipCoordinates[0]) + Number(ship[0].x);
+    var shipYCoordinate = Number(shipCoordinates[1]) + Number(ship[0].y); 
     var xDiff = asteroidXCoordinate - shipXCoordinate;
     var yDiff = asteroidYCoordinate - shipYCoordinate;
     var distSquared = Math.pow(xDiff, 2) + Math.pow(yDiff, 2);
     var distance = Math.sqrt(distSquared);
-    if(distance < 20) {
-      // set score to 0;
+    if(distance < 30) {
+      highScore[0] = Math.max(currentScore[0], highScore[0]);
+      d3.selectAll('.highscore').text(highScore[0]);
+      currentScore[0] = 0;
+      d3.selectAll('.current').text(currentScore[0]);
+      collisions[0]++;
+      d3.selectAll('.collisions').text(collisions[0]);
     }
   })
 }
@@ -67,7 +78,7 @@ board.selectAll('.asteroid')
 update(asteroids);
 setInterval(function(){ update(asteroids); }, 1000);
 
-setInterval(function() {detectCollisions(); }, 50);
+setInterval(function() {detectCollisions(); }, 100);
 
 board.selectAll('.ship')
      .data(ship)
